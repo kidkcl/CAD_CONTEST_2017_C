@@ -1,12 +1,12 @@
 REFPKGS  = 
-SRCPKGS  = cir minisat util
+SRCPKGS  = cir util sat
 LIBPKGS  = $(REFPKGS) $(SRCPKGS)
 MAIN     = main
 
 LIBS     = $(addprefix -l, $(LIBPKGS))
 SRCLIBS  = $(addsuffix .a, $(addprefix lib, $(SRCPKGS)))
 
-EXEC     = mlllk
+EXEC     = rpgen
 
 all: libs main
 
@@ -44,15 +44,32 @@ cleanall: clean
 	@echo "Removing bin/*..."
 	@rm -f bin/*
 
+remove:
+	@echo "Removing $(EXEC)..."
+	@rm -f bin/$(EXEC)
+	@rm -f $(EXEC)
+	@echo 'Removing out.v patch.v F_miter.v'
+	@rm -f out.v patch.v F_miter.v
+	@echo 'Removing *.out'
+	@rm -f *.out
+
 ctags:	  
 	@rm -f src/tags
-	@for pkg in $(SRCPKGS) main; \
+	@for pkg in $(SRCPKGS); \
 	do \
 		echo "Tagging $$pkg..."; \
 		cd src; ctags -a $$pkg/*.cpp $$pkg/*.h; cd ..; \
 	done
 	@echo "Tagging $(MAIN)..."
-	@cd src; ctags -a $(MAIN)/*.cpp $(MAIN)/*.h
+	@cd src; ctags -a ${MAIN}/*.cpp *.h; cd ..;
+
+removetags:
+	@echo "Removing all tags..."
+	@rm -f src/tags
+	@for pkg in $(SRCPKGS); \
+	do \
+		cd src; rm -rf $$pkg/tags; cd ..; \
+	done
 
 32:
 	@for pkg in $(REFPKGS); \

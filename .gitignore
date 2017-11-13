@@ -1,29 +1,25 @@
-# Compiled Object files
-*.slo
-*.lo
+# ignore binary
+rpgen
+# ignore object files
 *.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
+# ignore libraries
 *.a
-*.lib
-
-# Executables
-*.exe
+*.d
+# ignore swap files
+*.swp
+*.swo
+# ignore temporary files
+*.tmp
 *.out
-*.app
+# ignore bin files
+bin/rpgen
+# ignore output files
+out.v
+patch.v
+F_miter.v
+# ignore tags
+src/tags
+src/cir/tags
+src/sat/tags
+src/util/tags
+src/main/tags
